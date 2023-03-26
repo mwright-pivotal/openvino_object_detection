@@ -35,4 +35,6 @@ spec:
               pip3 install --upgrade pip
               pip3 install pytest
               pip3 install -r requirements.txt
+
+              export PATH=/home/openvino/.local/bin:$PATH
               pytest
