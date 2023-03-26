@@ -26,7 +26,7 @@ spec:
           - name: source-sub-path
         steps:
           - name: test
-            image: python:latest
+            image: openvino/openvino_tensorflow_ubuntu18_runtime:latest
             script: |-
               set -ex
               cd `mktemp -d`
