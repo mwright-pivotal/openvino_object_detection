@@ -1,0 +1,411 @@
+<?xml version="1.0"?>
+<mapping>
+	<map>
+		<framework name="data" output_port_id="data" />
+		<IR name="data" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="conv1_1" output_port_id="conv1_1" />
+		<IR name="conv1_1" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="relu1_1" output_port_id="conv1_1" />
+		<IR name="relu1_1" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="conv1_2" output_port_id="conv1_2" />
+		<IR name="conv1_2" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="relu1_2" output_port_id="conv1_2" />
+		<IR name="relu1_2" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="pool1" output_port_id="pool1" />
+		<IR name="pool1" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="conv2_1" output_port_id="conv2_1" />
+		<IR name="conv2_1" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="relu2_1" output_port_id="conv2_1" />
+		<IR name="relu2_1" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="conv2_2" output_port_id="conv2_2" />
+		<IR name="conv2_2" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="relu2_2" output_port_id="conv2_2" />
+		<IR name="relu2_2" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="pool2" output_port_id="pool2" />
+		<IR name="pool2" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="conv3_1" output_port_id="conv3_1" />
+		<IR name="conv3_1" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="relu3_1" output_port_id="conv3_1" />
+		<IR name="relu3_1" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="conv3_2" output_port_id="conv3_2" />
+		<IR name="conv3_2" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="relu3_2" output_port_id="conv3_2" />
+		<IR name="relu3_2" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="conv3_3" output_port_id="conv3_3" />
+		<IR name="conv3_3" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="relu3_3" output_port_id="conv3_3" />
+		<IR name="relu3_3" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="pool3" output_port_id="pool3" />
+		<IR name="pool3" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="conv4_1" output_port_id="conv4_1" />
+		<IR name="conv4_1" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="relu4_1" output_port_id="conv4_1" />
+		<IR name="relu4_1" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="conv4_2" output_port_id="conv4_2" />
+		<IR name="conv4_2" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="relu4_2" output_port_id="conv4_2" />
+		<IR name="relu4_2" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="conv4_3" output_port_id="conv4_3" />
+		<IR name="conv4_3" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="relu4_3" output_port_id="conv4_3" />
+		<IR name="relu4_3" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="conv4_3_norm" output_port_id="conv4_3_norm" />
+		<IR name="conv4_3_norm" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv4_3_norm_mbox_loc" output_port_id="conv4_3_norm_mbox_loc" />
+		<IR name="conv4_3_norm_mbox_loc" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv4_3_norm_mbox_loc_perm" output_port_id="conv4_3_norm_mbox_loc_perm" />
+		<IR name="conv4_3_norm_mbox_loc_perm" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv4_3_norm_mbox_loc_flat" output_port_id="conv4_3_norm_mbox_loc_flat" />
+		<IR name="conv4_3_norm_mbox_loc_flat" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="pool4" output_port_id="pool4" />
+		<IR name="pool4" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="conv5_1" output_port_id="conv5_1" />
+		<IR name="conv5_1" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="relu5_1" output_port_id="conv5_1" />
+		<IR name="relu5_1" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="conv5_2" output_port_id="conv5_2" />
+		<IR name="conv5_2" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="relu5_2" output_port_id="conv5_2" />
+		<IR name="relu5_2" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="conv5_3" output_port_id="conv5_3" />
+		<IR name="conv5_3" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="relu5_3" output_port_id="conv5_3" />
+		<IR name="relu5_3" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="pool5" output_port_id="pool5" />
+		<IR name="pool5" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="fc6" output_port_id="fc6" />
+		<IR name="fc6" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="relu6" output_port_id="fc6" />
+		<IR name="relu6" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="fc7" output_port_id="fc7" />
+		<IR name="fc7" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="relu7" output_port_id="fc7" />
+		<IR name="relu7" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="fc7_mbox_loc" output_port_id="fc7_mbox_loc" />
+		<IR name="fc7_mbox_loc" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="fc7_mbox_loc_perm" output_port_id="fc7_mbox_loc_perm" />
+		<IR name="fc7_mbox_loc_perm" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="fc7_mbox_loc_flat" output_port_id="fc7_mbox_loc_flat" />
+		<IR name="fc7_mbox_loc_flat" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv6_1" output_port_id="conv6_1" />
+		<IR name="conv6_1" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv6_1_relu" output_port_id="conv6_1" />
+		<IR name="conv6_1_relu" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="conv6_2" output_port_id="conv6_2" />
+		<IR name="conv6_2" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv6_2_relu" output_port_id="conv6_2" />
+		<IR name="conv6_2_relu" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="conv6_2_mbox_loc" output_port_id="conv6_2_mbox_loc" />
+		<IR name="conv6_2_mbox_loc" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv6_2_mbox_loc_perm" output_port_id="conv6_2_mbox_loc_perm" />
+		<IR name="conv6_2_mbox_loc_perm" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv6_2_mbox_loc_flat" output_port_id="conv6_2_mbox_loc_flat" />
+		<IR name="conv6_2_mbox_loc_flat" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv7_1" output_port_id="conv7_1" />
+		<IR name="conv7_1" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv7_1_relu" output_port_id="conv7_1" />
+		<IR name="conv7_1_relu" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="conv7_2" output_port_id="conv7_2" />
+		<IR name="conv7_2" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv7_2_relu" output_port_id="conv7_2" />
+		<IR name="conv7_2_relu" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="conv7_2_mbox_loc" output_port_id="conv7_2_mbox_loc" />
+		<IR name="conv7_2_mbox_loc" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv7_2_mbox_loc_perm" output_port_id="conv7_2_mbox_loc_perm" />
+		<IR name="conv7_2_mbox_loc_perm" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv7_2_mbox_loc_flat" output_port_id="conv7_2_mbox_loc_flat" />
+		<IR name="conv7_2_mbox_loc_flat" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv8_1" output_port_id="conv8_1" />
+		<IR name="conv8_1" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv8_1_relu" output_port_id="conv8_1" />
+		<IR name="conv8_1_relu" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="conv8_2" output_port_id="conv8_2" />
+		<IR name="conv8_2" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv8_2_relu" output_port_id="conv8_2" />
+		<IR name="conv8_2_relu" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="conv8_2_mbox_loc" output_port_id="conv8_2_mbox_loc" />
+		<IR name="conv8_2_mbox_loc" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv8_2_mbox_loc_perm" output_port_id="conv8_2_mbox_loc_perm" />
+		<IR name="conv8_2_mbox_loc_perm" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv8_2_mbox_loc_flat" output_port_id="conv8_2_mbox_loc_flat" />
+		<IR name="conv8_2_mbox_loc_flat" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv9_1" output_port_id="conv9_1" />
+		<IR name="conv9_1" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv9_1_relu" output_port_id="conv9_1" />
+		<IR name="conv9_1_relu" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="conv9_2" output_port_id="conv9_2" />
+		<IR name="conv9_2" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv9_2_relu" output_port_id="conv9_2" />
+		<IR name="conv9_2_relu" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="conv9_2_mbox_loc" output_port_id="conv9_2_mbox_loc" />
+		<IR name="conv9_2_mbox_loc" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv9_2_mbox_loc_perm" output_port_id="conv9_2_mbox_loc_perm" />
+		<IR name="conv9_2_mbox_loc_perm" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv9_2_mbox_loc_flat" output_port_id="conv9_2_mbox_loc_flat" />
+		<IR name="conv9_2_mbox_loc_flat" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="mbox_loc" output_port_id="mbox_loc" />
+		<IR name="mbox_loc" output_port_id="6" />
+	</map>
+	<map>
+		<framework name="conv4_3_norm_mbox_conf" output_port_id="conv4_3_norm_mbox_conf" />
+		<IR name="conv4_3_norm_mbox_conf" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv4_3_norm_mbox_conf_perm" output_port_id="conv4_3_norm_mbox_conf_perm" />
+		<IR name="conv4_3_norm_mbox_conf_perm" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv4_3_norm_mbox_conf_flat" output_port_id="conv4_3_norm_mbox_conf_flat" />
+		<IR name="conv4_3_norm_mbox_conf_flat" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="fc7_mbox_conf" output_port_id="fc7_mbox_conf" />
+		<IR name="fc7_mbox_conf" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="fc7_mbox_conf_perm" output_port_id="fc7_mbox_conf_perm" />
+		<IR name="fc7_mbox_conf_perm" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="fc7_mbox_conf_flat" output_port_id="fc7_mbox_conf_flat" />
+		<IR name="fc7_mbox_conf_flat" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv6_2_mbox_conf" output_port_id="conv6_2_mbox_conf" />
+		<IR name="conv6_2_mbox_conf" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv6_2_mbox_conf_perm" output_port_id="conv6_2_mbox_conf_perm" />
+		<IR name="conv6_2_mbox_conf_perm" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv6_2_mbox_conf_flat" output_port_id="conv6_2_mbox_conf_flat" />
+		<IR name="conv6_2_mbox_conf_flat" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv7_2_mbox_conf" output_port_id="conv7_2_mbox_conf" />
+		<IR name="conv7_2_mbox_conf" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv7_2_mbox_conf_perm" output_port_id="conv7_2_mbox_conf_perm" />
+		<IR name="conv7_2_mbox_conf_perm" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv7_2_mbox_conf_flat" output_port_id="conv7_2_mbox_conf_flat" />
+		<IR name="conv7_2_mbox_conf_flat" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv8_2_mbox_conf" output_port_id="conv8_2_mbox_conf" />
+		<IR name="conv8_2_mbox_conf" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv8_2_mbox_conf_perm" output_port_id="conv8_2_mbox_conf_perm" />
+		<IR name="conv8_2_mbox_conf_perm" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv8_2_mbox_conf_flat" output_port_id="conv8_2_mbox_conf_flat" />
+		<IR name="conv8_2_mbox_conf_flat" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv9_2_mbox_conf" output_port_id="conv9_2_mbox_conf" />
+		<IR name="conv9_2_mbox_conf" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv9_2_mbox_conf_perm" output_port_id="conv9_2_mbox_conf_perm" />
+		<IR name="conv9_2_mbox_conf_perm" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv9_2_mbox_conf_flat" output_port_id="conv9_2_mbox_conf_flat" />
+		<IR name="conv9_2_mbox_conf_flat" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="mbox_conf" output_port_id="mbox_conf" />
+		<IR name="mbox_conf" output_port_id="6" />
+	</map>
+	<map>
+		<framework name="mbox_conf_reshape" output_port_id="mbox_conf_reshape" />
+		<IR name="mbox_conf_reshape" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="mbox_conf_softmax" output_port_id="mbox_conf_softmax" />
+		<IR name="mbox_conf_softmax" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="mbox_conf_flatten" output_port_id="mbox_conf_flatten" />
+		<IR name="mbox_conf_flatten" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv4_3_norm_mbox_priorbox" output_port_id="conv4_3_norm_mbox_priorbox" />
+		<IR name="conv4_3_norm_mbox_priorbox" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="fc7_mbox_priorbox" output_port_id="fc7_mbox_priorbox" />
+		<IR name="fc7_mbox_priorbox" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv6_2_mbox_priorbox" output_port_id="conv6_2_mbox_priorbox" />
+		<IR name="conv6_2_mbox_priorbox" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv7_2_mbox_priorbox" output_port_id="conv7_2_mbox_priorbox" />
+		<IR name="conv7_2_mbox_priorbox" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv8_2_mbox_priorbox" output_port_id="conv8_2_mbox_priorbox" />
+		<IR name="conv8_2_mbox_priorbox" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="conv9_2_mbox_priorbox" output_port_id="conv9_2_mbox_priorbox" />
+		<IR name="conv9_2_mbox_priorbox" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="mbox_priorbox" output_port_id="mbox_priorbox" />
+		<IR name="mbox_priorbox" output_port_id="6" />
+	</map>
+	<map>
+		<framework name="detection_out" output_port_id="detection_out" />
+		<IR name="detection_out" output_port_id="3" />
+	</map>
+</mapping>
