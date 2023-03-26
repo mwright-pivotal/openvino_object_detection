@@ -1,0 +1,29 @@
+apiVersion: carto.run/v1alpha1
+kind: Workload
+metadata:
+  name: computer-vision-inferencing-app
+  labels:
+    app.kubernetes.io/part-of: openvino_object_detection
+    apps.tanzu.vmware.com/workload-type: server
+    apps.tanzu.vmware.com/has-tests: "true"
+spec:
+  params:
+    - name: gitops_server_address
+      value: ssh://git@github.com
+    - name: gitops_repository_owner
+      value: mwright-pivotal
+    - name: gitops_repository_name
+      value: openvino_object_detection
+    - name: gitops_commit_branch
+      value: ""
+    - name: testing_pipeline_matching_labels
+      value:
+        apps.tanzu.vmware.com/pipeline: test-python
+  source:
+    git:
+      url: ssh://git@github.com/mwright-pivotal/openvino_object_detection
+      ref:
+        branch: main
+  env:
+    - name: VIDEO_INPUT
+      value: "person.mp4"

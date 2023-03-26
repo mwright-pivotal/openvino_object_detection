@@ -1,0 +1,36 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: python-test-tekton-pipeline
+  labels:
+    apps.tanzu.vmware.com/pipeline: test-python
+spec:
+  params:
+    - name: source-url
+    - name: source-revision
+    - name: source-sub-path
+      default: ""
+  tasks:
+    - name: test
+      params:
+        - name: source-url
+          value: $(params.source-url)
+        - name: source-revision
+          value: $(params.source-revision)
+        - name: source-sub-path
+          value: $(params.source-sub-path)
+      taskSpec:
+        params:
+          - name: source-url
+          - name: source-revision
+          - name: source-sub-path
+        steps:
+          - name: test
+            image: python:latest
+            script: |-
+              set -ex
+              cd `mktemp -d`
+              wget -qO- $(params.source-url) | tar xvz -m
+              pip3 install pytest
+              pip3 install -r requirements.txt
+              pytest
