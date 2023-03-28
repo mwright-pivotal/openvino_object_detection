@@ -39,7 +39,7 @@ spec:
       - env:
         - name: VIDEO_INPUT
           value: person.mp4
-        image: harbor.services.edge.wrightcode.io:9443/apps/computer-vision-inferencing-app-default@sha256:e2f9badf83424d04ecff2af25b63b537de43fa43336c01bb5ce912b6a59d2422
+        image: harbor.services.edge.wrightcode.io:9443/apps/computer-vision-inferencing-app-default@sha256:f1371fe4f785d7c7440b2baa1a682f35cd9cb0533aaec1a1e148367a6000324d
         name: workload
         resources: {}
         securityContext:
