@@ -15,10 +15,12 @@ spec:
     - name: gitops_repository_name
       value: openvino_object_detection
     - name: gitops_commit_branch
-      value: ""
+      value: "staging"
     - name: testing_pipeline_matching_labels
       value:
         apps.tanzu.vmware.com/pipeline: test-python
+    - name: clusterBuilder
+      value: openvino-builder
   source:
     git:
       url: ssh://git@github.com/mwright-pivotal/openvino_object_detection
@@ -26,4 +28,6 @@ spec:
         branch: main
   env:
     - name: VIDEO_INPUT
-      value: "person.mp4"
+      value: "person-bicycle-car-detection.mp4"
+    - name: ACCELERATION_DEVICE
+      value: "CPU"
