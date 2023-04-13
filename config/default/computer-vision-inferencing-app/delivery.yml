@@ -41,9 +41,12 @@ spec:
           value: person-bicycle-car-detection.mp4
         - name: ACCELERATION_DEVICE
           value: CPU
-        image: harbor.services.edge.wrightcode.io:9443/apps/computer-vision-inferencing-app-default@sha256:49c5495e6bc26d6996aae0c64a6ec3e53e4b75e452c539cee49a22424ae4c6af
+        image: harbor.services.edge.wrightcode.io:9443/apps/computer-vision-inferencing-app-default@sha256:20d3d1e4198d6cb867871c0d5c9ea021742addb383bd222209db4e4bf51852bb
         name: workload
-        resources: {}
+        resources:
+          limits:
+            gpu.intel.com/i915: "1"
+            squat.ai/video: "1"
         securityContext:
           runAsUser: 0
       serviceAccountName: default
