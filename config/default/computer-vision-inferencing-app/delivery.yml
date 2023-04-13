@@ -38,9 +38,9 @@ spec:
       containers:
       - env:
         - name: VIDEO_INPUT
-          value: person-bicycle-car-detection.mp4
+          value: 0
         - name: ACCELERATION_DEVICE
-          value: CPU
+          value: GPU
         image: harbor.services.edge.wrightcode.io:9443/apps/computer-vision-inferencing-app-default@sha256:ac8659db668719b10903a58294ede952bf5e89d9a0d9c90c8f3d940f25515a6d
         name: workload
         resources:
