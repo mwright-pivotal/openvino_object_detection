@@ -41,7 +41,7 @@ spec:
           value: person-bicycle-car-detection.mp4
         - name: ACCELERATION_DEVICE
           value: CPU
-        image: harbor.services.edge.wrightcode.io:9443/apps/computer-vision-inferencing-app-default@sha256:93136f13d0ff71deff7ddecfd5d145d0352288ce29045c4f0d3f4dccbe539ec5
+        image: harbor.services.edge.wrightcode.io:9443/apps/computer-vision-inferencing-app-default@sha256:06d150acec560e8c15abdabe9c3705c6a4cb98a03796d9a802d2ea410cdbab9b
         name: workload
         resources:
           limits:
