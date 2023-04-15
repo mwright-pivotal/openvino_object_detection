@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: computer-vision-inferencing-app
+  annotations:
+    kapp.k14s.io/update-strategy: fallback-on-replace
+    ootb.apps.tanzu.vmware.com/servicebinding-workload: "true"
+    kapp.k14s.io/change-rule: upsert after upserting servicebinding.io/ServiceBindings
+  labels:
+    app.kubernetes.io/part-of: openvino_object_detection
+    apps.tanzu.vmware.com/has-tests: "true"
+    apps.tanzu.vmware.com/workload-type: server
+    app.kubernetes.io/component: run
+    carto.run/workload-name: computer-vision-inferencing-app
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: run
+      app.kubernetes.io/part-of: openvino_object_detection
+      apps.tanzu.vmware.com/has-tests: "true"
+      apps.tanzu.vmware.com/workload-type: server
+      carto.run/workload-name: computer-vision-inferencing-app
+  template:
+    metadata:
+      annotations:
+        conventions.carto.run/applied-conventions: |-
+          appliveview-sample/app-live-view-appflavour-check
+          spring-boot-convention/auto-configure-actuators-check
+          spring-boot-convention/app-live-view-appflavour-check
+        developer.conventions/target-containers: workload
+      labels:
+        app.kubernetes.io/component: run
+        app.kubernetes.io/part-of: openvino_object_detection
+        apps.tanzu.vmware.com/has-tests: "true"
+        apps.tanzu.vmware.com/workload-type: server
+        carto.run/workload-name: computer-vision-inferencing-app
+    spec:
+      containers:
+      - env:
+        - name: VIDEO_INPUT
+          value: person-bicycle-car-detection.mp4
+        - name: ACCELERATION_DEVICE
+          value: CPU
+        image: harbor.eqix.vmwedge.com:9443/apps/computer-vision-inferencing-app-wrightmi@sha256:8be7dccbb0b5cbca6f21a111abffcc62fe6a933d2c1a89dc5dcc008bbf143575
+        name: workload
+        resources:
+          limits:
+            gpu.intel.com/i915: "1"
+            squat.ai/video: "1"
+        securityContext:
+          runAsUser: 0
+      serviceAccountName: default
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: computer-vision-inferencing-app
+  labels:
+    app.kubernetes.io/part-of: openvino_object_detection
+    apps.tanzu.vmware.com/has-tests: "true"
+    apps.tanzu.vmware.com/workload-type: server
+    app.kubernetes.io/component: run
+    carto.run/workload-name: computer-vision-inferencing-app
+spec:
+  selector:
+    app.kubernetes.io/component: run
+    app.kubernetes.io/part-of: openvino_object_detection
+    apps.tanzu.vmware.com/has-tests: "true"
+    apps.tanzu.vmware.com/workload-type: server
+    carto.run/workload-name: computer-vision-inferencing-app
+  ports:
+  - targetPort: 8080
+    port: 8080
+    name: http
+
