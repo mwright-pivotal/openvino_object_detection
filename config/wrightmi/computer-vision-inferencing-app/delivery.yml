@@ -41,7 +41,7 @@ spec:
           value: person-bicycle-car-detection.mp4
         - name: ACCELERATION_DEVICE
           value: CPU
-        image: harbor.eqix.vmwedge.com:9443/apps/computer-vision-inferencing-app-wrightmi@sha256:6698d8e5f93359d8504a819fffcc28bda9660b379f927db9ba61b419d4d48c36
+        image: harbor.eqix.vmwedge.com:9443/apps/computer-vision-inferencing-app-wrightmi@sha256:984fdee574d61c38f735588c3ed2596b4672561aa4db401489cf85e4cef6ebc0
         name: workload
         resources:
           limits:
