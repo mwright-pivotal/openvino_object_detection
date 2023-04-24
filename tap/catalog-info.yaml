@@ -1,0 +1,17 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: POSTxnMonitor
+  description: Tanzu Edge Point of Sale Transaction Monitor
+  tags:
+    - app-accelerator
+    - rabbitmq
+    - dotnet
+    - tanzu
+    - edge
+  annotations:
+    'backstage.io/kubernetes-label-selector': 'app.kubernetes.io/part-of=tanzu-edge-pos'
+spec:
+  type: service
+  lifecycle: experimental
+  owner: default-team
