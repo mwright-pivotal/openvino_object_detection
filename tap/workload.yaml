@@ -25,7 +25,7 @@ spec:
     git:
       url: ssh://git@github.com/mwright-pivotal/openvino_object_detection
       ref:
-        branch: main
+        branch: rmq-streams
   env:
     - name: VIDEO_INPUT
       value: "person-bicycle-car-detection.mp4"
