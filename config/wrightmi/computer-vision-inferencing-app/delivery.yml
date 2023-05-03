@@ -38,10 +38,10 @@ spec:
       containers:
       - env:
         - name: VIDEO_INPUT
-          value: person-bicycle-car-detection.mp4
+          value: starwars-sample.mp4
         - name: ACCELERATION_DEVICE
           value: CPU
-        image: harbor.eqix.vmwedge.com:9443/apps/computer-vision-inferencing-app-wrightmi@sha256:2dab71d716d49feaf29ef580a411c4736b0c034c7b832014ad669afaa8b59ada
+        image: harbor.eqix.vmwedge.com:9443/apps/computer-vision-inferencing-app-wrightmi@sha256:467c4538149893f34122857a8042492272546e30eaa702e367006a7b1bdbd493
         name: workload
         resources:
           limits:
