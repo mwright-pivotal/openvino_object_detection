@@ -15,7 +15,7 @@ spec:
     - name: gitops_repository_name
       value: openvino_object_detection
     - name: gitops_commit_branch
-      value: "staging"
+      value: "rmq-streams"
     - name: testing_pipeline_matching_labels
       value:
         apps.tanzu.vmware.com/pipeline: test-python
@@ -25,12 +25,16 @@ spec:
     git:
       url: ssh://git@github.com/mwright-pivotal/openvino_object_detection
       ref:
-        branch: main
+        branch: rmq-streams
   env:
     - name: VIDEO_INPUT
-      value: "person-bicycle-car-detection.mp4"
+      value: "starwars-sample.mp4"
     - name: ACCELERATION_DEVICE
       value: "CPU"
+    - name: INFERENCING_MODEL
+      value: custom_models/saved_model.xml
+    - name: LABELS_FILE
+      value: starwars_labels.txt
   resources:
     limits:
       # use only if you have required device plugins enabled in your run cluster
