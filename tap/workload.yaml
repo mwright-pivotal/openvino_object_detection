@@ -31,3 +31,8 @@ spec:
       value: "person-bicycle-car-detection.mp4"
     - name: ACCELERATION_DEVICE
       value: "CPU"
+  resources:
+    limits:
+      # use only if you have required device plugins enabled in your run cluster
+      gpu.intel.com/i915: 1
+      squat.ai/video: 1

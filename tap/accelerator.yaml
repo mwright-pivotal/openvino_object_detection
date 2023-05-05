@@ -1,0 +1,10 @@
+accelerator:
+  displayName: Edge Computer Vision App using Intel Openvino
+  description: This application takes live camera feed input from IP camera or USB attached camera and performs object classification using a pre-trained model from Intel's pre-trained model.  It is written in Python and offloads inferencing work to Intel based GPU
+  iconUrl: https://www.intel.com/content/dam/www/central-libraries/us/en/images/logo-openvino-1x1.png
+  tags:
+  - python
+  - rabbitmq
+  - edge
+  - computervision
+  - intel-openvino

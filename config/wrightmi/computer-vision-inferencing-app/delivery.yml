@@ -41,11 +41,7 @@ spec:
           value: starwars-sample.mp4
         - name: ACCELERATION_DEVICE
           value: CPU
-        - name: INFERENCING_MODEL
-          value: custom_models/saved_model.xml
-        - name: LABELS_FILE
-          value: starwars_labels.txt
-        image: harbor.services.edge.wrightcode.io:9443/apps/computer-vision-inferencing-app-default@sha256:e520ca1b9d2fabe67730335eb41144f5b13fefd496fb6e7d1db071c4b82c7b67
+        image: harbor.eqix.vmwedge.com:9443/apps/computer-vision-inferencing-app-wrightmi@sha256:503055da1d08102141cca932b40d52bc824bff1669ce3400c391c1ac884572dd
         name: workload
         resources:
           limits:
