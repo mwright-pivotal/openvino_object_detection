@@ -38,9 +38,9 @@ spec:
       containers:
       - env:
         - name: VIDEO_INPUT
-          value: starwars-sample.mp4
+          value: 0
         - name: ACCELERATION_DEVICE
-          value: CPU
+          value: GPU
         - name: INFERENCING_MODEL
           value: custom_models/saved_model.xml
         - name: LABELS_FILE
