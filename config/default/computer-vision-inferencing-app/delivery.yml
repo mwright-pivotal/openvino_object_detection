@@ -38,7 +38,7 @@ spec:
       containers:
       - env:
         - name: VIDEO_INPUT
-          value: 0
+          value: "0"
         - name: ACCELERATION_DEVICE
           value: GPU
         - name: INFERENCING_MODEL
