@@ -199,7 +199,7 @@ def send_to_rmq_stream(detections, labels, frame_id):
         channel.basic_publish(
             exchange='',
             routing_key='inferencing_stream',
-            body='{"class": "' + det_label + '", "score": "' + str(detection.scpre) + '" }'
+            body='{"class": "' + det_label + '", "score": "' + str(detection.score) + '" }'
         )
         log.debug('{:^9} | {:10f} | {:4} | {:4} | {:4} | {:4} '
                   .format(det_label, detection.score, xmin, ymin, xmax, ymax))
@@ -258,6 +258,8 @@ def main():
 
             if len(objects) and args.raw_output_message:
                 print_raw_results(objects, model.labels, next_frame_id_to_show)
+                send_to_rmq_stream(objects, model.labels, next_frame_id_to_show)
+
 
             presenter.drawGraphs(frame)
             rendering_start_time = perf_counter()
@@ -318,6 +320,7 @@ def main():
 
         if len(objects) and args.raw_output_message:
             print_raw_results(objects, model.labels, next_frame_id_to_show)
+            send_to_rmq_stream(objects, model.labels, next_frame_id_to_show)
 
         presenter.drawGraphs(frame)
         rendering_start_time = perf_counter()
