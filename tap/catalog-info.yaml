@@ -1,16 +1,17 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: POSTxnMonitor
-  description: Tanzu Edge Point of Sale Transaction Monitor
+  name: openvino_object_detection
+  description: Edge Native Computer Vision Application Optimized for VMWare Device Edge
   tags:
     - app-accelerator
     - rabbitmq
-    - dotnet
-    - tanzu
+    - python
+    - openvino
+    - computer-vision
     - edge
   annotations:
-    'backstage.io/kubernetes-label-selector': 'app.kubernetes.io/part-of=tanzu-edge-pos'
+    'backstage.io/kubernetes-label-selector': 'app.kubernetes.io/part-of=object-detection'
 spec:
   type: service
   lifecycle: experimental

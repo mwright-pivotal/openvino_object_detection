@@ -24,9 +24,9 @@ spec:
     metadata:
       annotations:
         conventions.carto.run/applied-conventions: |-
+          appliveview-sample/app-live-view-appflavour-check
           spring-boot-convention/auto-configure-actuators-check
           spring-boot-convention/app-live-view-appflavour-check
-          appliveview-sample/app-live-view-appflavour-check
         developer.conventions/target-containers: workload
       labels:
         app.kubernetes.io/component: run
@@ -38,10 +38,14 @@ spec:
       containers:
       - env:
         - name: VIDEO_INPUT
-          value: person-bicycle-car-detection.mp4
+          value: starwars-sample.mp4
         - name: ACCELERATION_DEVICE
           value: CPU
-        image: harbor.services.edge.wrightcode.io:9443/apps/computer-vision-inferencing-app-default@sha256:ac8659db668719b10903a58294ede952bf5e89d9a0d9c90c8f3d940f25515a6d
+        - name: INFERENCING_MODEL
+          value: custom_models/saved_model.xml
+        - name: LABELS_FILE
+          value: starwars_labels.txt
+        image: harbor.services.edge.wrightcode.io:9443/apps/computer-vision-inferencing-app-default@sha256:88cc5c3468f0a20b16227d79d03cea9295810f3a0b099efa503bf96abbef76e2
         name: workload
         resources:
           limits:

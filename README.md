@@ -1,4 +1,4 @@
-This is a modfied version of one of Intel's sample apps for using their Openvino framework to do computer vision/object detection AI with help of GPU.
+This is a modfied version of one of Intel's sample apps for using their Openvino framework to do computer vision/object detection AI with help of GPU.  Inferenceing results are written to RabbitMQ streams for store and forward to datacenter/cloud
 
 Orignal README here: https://github.com/openvinotoolkit/open_model_zoo/blob/master/demos/object_detection_demo/python/README.md
 
