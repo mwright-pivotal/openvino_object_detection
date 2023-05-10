@@ -20,6 +20,7 @@ import sys
 from argparse import ArgumentParser, SUPPRESS
 from pathlib import Path
 from time import perf_counter
+import pika, os
 
 import cv2
 """
@@ -160,7 +161,48 @@ def print_raw_results(detections, labels, frame_id):
         log.debug('{:^9} | {:10f} | {:4} | {:4} | {:4} | {:4} '
                   .format(det_label, detection.score, xmin, ymin, xmax, ymax))
 
+rabbitmq_hostname = os.environ.get(
+    'AMQP_HOSTNAME', 'localhost'
+)
+rabbitmq_port = os.environ.get(
+    'AMQP_PORT', '5672'
+)
+rabbitmq_user = os.environ.get(
+    'AMQP_USER', 'user'
+)
+rabbitmq_password = os.environ.get(
+    'AMQP_PASSWORD', 'guest'
+)
 
+credentials = pika.PlainCredentials(rabbitmq_user, rabbitmq_password)
+parameters = pika.ConnectionParameters(rabbitmq_hostname,
+                                       rabbitmq_port,
+                                       '/',
+                                       credentials)
+
+connection = pika.BlockingConnection(parameters)
+channel = connection.channel() # start a channel
+
+# Declare a Stream, named test_stream
+channel.queue_declare(
+  queue='inferencing_stream',
+      durable=True,
+  arguments={"x-queue-type": "stream"}
+)
+def send_to_rmq_stream(detections, labels, frame_id):
+    for detection in detections:
+        xmin, ymin, xmax, ymax = detection.get_coords()
+        class_id = int(detection.id) - 1;
+        log.debug(labels)
+        log.debug(class_id)
+        det_label = labels[class_id] if labels and len(labels) >= class_id else '#{}'.format(class_id)
+        channel.basic_publish(
+            exchange='',
+            routing_key='inferencing_stream',
+            body='{"class": "' + det_label + '", "score": "' + str(detection.scpre) + '" }'
+        )
+        log.debug('{:^9} | {:10f} | {:4} | {:4} | {:4} | {:4} '
+                  .format(det_label, detection.score, xmin, ymin, xmax, ymax))
 def main():
     args = build_argparser().parse_args()
     if args.architecture_type != 'yolov4' and args.anchors:

@@ -35,6 +35,12 @@ spec:
       value: custom_models/saved_model.xml
     - name: LABELS_FILE
       value: starwars_labels.txt
+  serviceClaims:
+  - name: rmq
+    ref:
+      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+      kind: ResourceClaim
+      name: edge-inferencing-events
   resources:
     limits:
       # use only if you have required device plugins enabled in your run cluster
