@@ -41,7 +41,7 @@ spec:
           value: starwars-sample.mp4
         - name: ACCELERATION_DEVICE
           value: CPU
-        image: harbor.eqix.vmwedge.com:9443/apps/computer-vision-inferencing-app-wrightmi@sha256:a4a6368abe9a9aa54eeb76b2eee8f4e06dee0149d676ea2b7544179e7fd8e94c
+        image: harbor.eqix.vmwedge.com:9443/apps/computer-vision-inferencing-app-wrightmi@sha256:ba49d51f507d666d31f9bd065b56b7f82f3181aabac16249f2e958057486fb52
         name: workload
         resources:
           limits:
