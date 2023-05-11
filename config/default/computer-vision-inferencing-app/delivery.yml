@@ -45,12 +45,9 @@ spec:
           value: custom_models/saved_model.xml
         - name: LABELS_FILE
           value: starwars_labels.txt
-        image: harbor.services.edge.wrightcode.io:9443/apps/computer-vision-inferencing-app-default@sha256:b01494ce2b7f6b5a5d17b1e8eea746a35ea76a7c1da446515c0bab766dcce729
+        image: harbor.services.edge.wrightcode.io:9443/apps/computer-vision-inferencing-app-default@sha256:903ce8445d23d6b572505333d4c605b9995db3c9b5a17b75b1d7dddaf18452bd
         name: workload
-        resources:
-          limits:
-            gpu.intel.com/i915: "1"
-            squat.ai/video: "1"
+        resources: {}
         securityContext:
           runAsUser: 0
       serviceAccountName: default
