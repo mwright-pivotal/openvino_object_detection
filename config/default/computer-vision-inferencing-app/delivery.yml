@@ -55,7 +55,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: edge-inferencing-events-default-user
-              key: stream-port
+              key: port
               optional: true
         - name: AMQP_USER
           valueFrom:
