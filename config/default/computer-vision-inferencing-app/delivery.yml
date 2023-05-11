@@ -45,7 +45,7 @@ spec:
           value: custom_models/saved_model.xml
         - name: LABELS_FILE
           value: starwars_labels.txt
-        image: harbor.services.edge.wrightcode.io:9443/apps/computer-vision-inferencing-app-default@sha256:431b5a8d0ef91ff89695359f6e32d5e9c5eec4914112ec649bbede822c0eac08
+        image: harbor.services.edge.wrightcode.io:9443/apps/computer-vision-inferencing-app-default@sha256:c137c922d30131b64b77e3beb1e37623691219dbad508c724dd0890dc24e5176
         name: workload
         resources: {}
         securityContext:
