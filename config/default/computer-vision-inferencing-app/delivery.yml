@@ -51,7 +51,7 @@ spec:
               key: host
               name: edge-inferencing-events-default-user
               optional: false
-        image: harbor.services.edge.wrightcode.io:9443/apps/computer-vision-inferencing-app-default@sha256:4bb383eb681210ca34828abce3161bf3838bc798f787e01c7d29635dff338696
+        image: harbor.services.edge.wrightcode.io:9443/apps/computer-vision-inferencing-app-default@sha256:e5223b93d3dfbf12ac476b7ec3d0918526e99c623e523643d937b9ce79bbdd3a
         name: workload
         resources: {}
         securityContext:
