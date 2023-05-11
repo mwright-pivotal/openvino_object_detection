@@ -45,7 +45,13 @@ spec:
           value: custom_models/saved_model.xml
         - name: LABELS_FILE
           value: starwars_labels.txt
-        image: harbor.services.edge.wrightcode.io:9443/apps/computer-vision-inferencing-app-default@sha256:0b004cbc368bf0130c6e7a16a23d0a4b6f3177065a7dd0de7b5d3058bf628ec4
+        - name: AMQP_HOSTNAME
+          valueFrom:
+            secretKeyRef:
+              key: host
+              name: edge-inferencing-events-default-user
+              optional: false
+        image: harbor.services.edge.wrightcode.io:9443/apps/computer-vision-inferencing-app-default@sha256:7786d0f080af85cc45d5682edbd906330ed5f1e1a5aea8601e06c227cffc033d
         name: workload
         resources: {}
         securityContext:
