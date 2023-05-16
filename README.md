@@ -8,3 +8,6 @@ Prior to building the app, you need a custom builder as explained in this repo: 
 Then building the app is as simple as:
 
 ```pack build object-detection  --builder openvino-builder:bionic```
+
+End2End Flow
+![Alt text](Device Edge Demo Flow.jpeg?raw=true "Device Edge Demo Flow")
