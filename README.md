@@ -7,7 +7,7 @@ This extends the use of Intel's Openvino demo to the ability of using Cloud Nati
 Prior to building the app, you need a custom builder as explained in this repo: https://github.com/mwright-pivotal/openvino-buildpack
 Then building the app is as simple as:
 
-```pack build object-detection  --builder openvino-builder:bionic```
+```pack build object-detection  --builder openvino-builder:jammy```
 
 to run locally:
 1. create a docker network named "inferencing"
