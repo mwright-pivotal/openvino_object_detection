@@ -19,3 +19,5 @@ to run locally:
 
 4. run container
 ```docker run -e VIDEO_INPUT=starwars-sample.mp4 -e ACCELERATION_DEVICE=GPU -e INFERENCING_MODEL=custom_models/saved_model.xml -e LABELS_FILE=starwars_labels.txt -e AMQP_HOSTNAME=tanzu-messaging --network inferencing --device /dev/dri --group-add=$(stat -c "%g" /dev/dri/render*) object-detection```
+
+Note: change ACCELERATION_DEVICE to "CPU" if you don't have integrated Intel GPU.
