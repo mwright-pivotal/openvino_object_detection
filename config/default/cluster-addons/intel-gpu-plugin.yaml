@@ -27,7 +27,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: status.hostIP
-        image: intel/intel-gpu-plugin:0.26.1
+        image: intel/intel-gpu-plugin:0.27.1
         imagePullPolicy: IfNotPresent
         name: intel-gpu-plugin
         securityContext:
@@ -45,7 +45,7 @@ spec:
         - mountPath: /var/lib/kubelet/device-plugins
           name: kubeletsockets
       initContainers:
-      - image: intel/intel-gpu-initcontainer:0.26.1
+      - image: intel/intel-gpu-initcontainer:0.27.1
         imagePullPolicy: IfNotPresent
         name: intel-gpu-initcontainer
         securityContext:
