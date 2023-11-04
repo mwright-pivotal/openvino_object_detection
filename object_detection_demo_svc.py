@@ -165,6 +165,7 @@ async def frame_processors(worker_id, conn, queue, write_queue):
 
         print(f"Worker {worker_id}: got frame {idx} {frame.shape}")
 
+        orig_frame = frame
         h, w, c = frame.shape
         if c == 3:
             # Convert from H*W*C to C*H*W
@@ -183,7 +184,7 @@ async def frame_processors(worker_id, conn, queue, write_queue):
         # Run the inference. Data adds metadata for performance, drops "in" so we don't get the image back
         results = await wallaroo.async_infer(conn, table, dataset_params=params, timeout=30)
         # print(f"Results {worker_id}: {idx} {results}")
-        await write_queue.put((idx, frame, results))
+        await write_queue.put((idx, orig_frame, results))
 
         # Notify the queue that the "work item" has been processed.
         queue.task_done()
@@ -222,41 +223,26 @@ async def frame_writer(dest, queue):
         classes = results["out.2519"][0]
         bboxes = results["out.output"][0]
         
+        objects = 0
         for bidx in range(len(classes)):
             if confidences[bidx].as_py() < 0.5:
                 continue
-            class_id = int(classes[bidx])
-            xmin, ymin, xmax, ymax = bboxes[bidx:bidx+4]
-            xmin, ymin, xmax, ymax = int(xmin), int(ymin), int(xmax), int(ymax)
+            objects += 1
+            class_id = int(classes[bidx].as_py())
+            xmin = int(bboxes[bidx].as_py())
+            ymin = int(bboxes[bidx+1].as_py())
+            xmax = int(bboxes[bidx+2].as_py())
+            ymax = int(bboxes[bidx+3].as_py())
             cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (255, 0, 0), 2)
-            cv2.putText(frame, f"{class_id} {confidences[bidx]:.2f}",
+            cv2.putText(frame, f"{class_id} {confidences[bidx].as_py():.2f}",
                         (xmin, ymin - 7), cv2.FONT_HERSHEY_COMPLEX, 0.6, (255, 0, 0), 1)
         # Writing image to file
-        print(f"Writer: writing frame {idx}")
+        print(f"Writer: writing frame {idx}, {objects} boxes")
+        if objects > 0:
+            cv2.imwrite(f"img-{idx}.png", frame)
         queue.task_done()
+        next_frame_id += 1
         
-
-
-# async def async_main():
-#     # Create a queue that we will use to store our "workload".
-#     q = asyncio.Queue()
-
-#     # Create three worker tasks to process the queue concurrently.
-#     tasks = [asyncio.create_task(process(i, q)) for i in range(3)]
-
-#     # Generate random timings and put them into the queue.
-#     print(f"One")
-#     for i in range(20):
-#         await q.put(i)
-
-#     print(f"Two")
-#     await q.join()
-
-#     print(f"Three")
-#     for task in tasks:
-#         task.cancel()
-#     # Wait until all worker tasks are cancelled.
-#     await asyncio.gather(*tasks, return_exceptions=True)
 
 
 async def main():
@@ -282,10 +268,10 @@ async def main():
     video_writer = cv2.VideoWriter()
 
     # Max number of frames to keep in memory. We want enough that we can keep the inference server busy
-    WORKER_COUNT = 1
+    WORKER_COUNT = 3
     conn = wallaroo.connect("http://localhost:8081/pipelines/bench-mobilenet-pipeline")
-    work_queue = asyncio.Queue(WORKER_COUNT*3)
-    write_queue = asyncio.Queue(WORKER_COUNT*2)
+    work_queue = asyncio.Queue(WORKER_COUNT*6)
+    write_queue = asyncio.Queue()
     workers = [asyncio.create_task(frame_processors(i, conn, work_queue, write_queue)) for i in range(WORKER_COUNT)]
     workers.append(asyncio.create_task(frame_writer(args.output, write_queue)))
 
@@ -335,7 +321,7 @@ async def main():
 
         img = Image.fromarray(frame)
         img = img.resize((640, 480))
-        img.save(f"test-{next_frame_id}.jpg")
+        # img.save(f"test-{next_frame_id}.jpg")
         frame = np.array(img)
         print(f"That's cap: {next_frame_id} {frame.shape}")
         await work_queue.put((next_frame_id, frame))
