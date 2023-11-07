@@ -3,4 +3,4 @@ opencv-python-headless==4.6.0.66
 pytest
 wallaroo==2023.4.0b2
 httpx
-tenancity
+tenacity===8.0.1
