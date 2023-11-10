@@ -48,8 +48,9 @@ log.basicConfig(format='[ %(levelname)s ] %(message)s', level=log.DEBUG, stream=
 
 
 ModelConfigs = {
-    "mobilenet": { "width" : 640, "height": 480, "classes" : "out.2519", "confidences" : "out.2518" },
-    "frcnn": { "width" : 640, "height": 480, "classes" : "out.3070", "confidences" : "out.3069" },
+    "mobilenet": { "tensor": "data", "width" : 640, "height": 480, "classes" : "out.2519", "confidences" : "out.2518" },
+    "frcnn": { "tensor": "data", "width" : 640, "height": 480, "classes" : "out.3070", "confidences" : "out.3069" },
+    "yolov8": { "tensor": "images", "width" : 640, "height": 640, "classes" : None, "confidences" : None, "combined" : "out.output0" },
 }
 
 MODEL_CONFIG = {}
@@ -111,7 +112,7 @@ async def frame_processors(worker_id, conn, queue, write_queue):
         frame = frame.reshape((1, c*h*w))
 
         frame = pa.FixedShapeTensorArray.from_numpy_ndarray(frame)
-        table = pa.Table.from_pydict({"data": frame})
+        table = pa.Table.from_pydict({MODEL_CONFIG["tensor"]: frame})
 
         # Run the inference. Data adds metadata for performance, drops "in" so we don't get the image back
         results = await wallaroo.async_infer(conn, table, dataset_params=params, timeout=30)
@@ -146,35 +147,11 @@ async def frame_writer(dest, queue, video_writer):
             out_of_order_queue[idx] = (idx, frame, results)
             continue
 
-        # Render the detections on the original frame
-        #    For MobileNet model:
-        #       out.2518: confidences
-        #       out.2519: detection classes
-        #       out.output: bounding boxes
-        # print(f"Writer: rendering frame {idx} {len(results['out.output'][0])} {len(results['out.2518'][0])}")
-        # confidences = results["out.2518"][0]
-        # classes = results["out.2519"][0]
-        confidences = results[MODEL_CONFIG["confidences"]][0]
-        classes = results[MODEL_CONFIG["classes"]][0]
-        bboxes = results["out.output"][0]
-
-        objects = 0
-        for bidx in range(len(classes)):
-            if confidences[bidx].as_py() < 0.5:
-                continue
-            objects += 1
-
-            # Draw the bounding box around the detected object.
-            # TODO: No labels array yet so just object index
-            class_id = int(classes[bidx].as_py())
-            label = CLASS_LABELS[class_id] if CLASS_LABELS and len(CLASS_LABELS) >= class_id else f"#{class_id}"
-            xmin = int(bboxes[bidx].as_py())
-            ymin = int(bboxes[bidx+1].as_py())
-            xmax = int(bboxes[bidx+2].as_py())
-            ymax = int(bboxes[bidx+3].as_py())
-            cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (255, 0, 0), 2)
-            cv2.putText(frame, f"{label} {confidences[bidx].as_py():.2f}",
-                        (xmin, ymin - 7), cv2.FONT_HERSHEY_COMPLEX, 0.6, (255, 0, 0), 1)
+        # Render the detections on the original frame. Different models have different output styles.
+        if MODEL_CONFIG["classes"]:
+            objects, frame = render_resnet(results, frame)
+        elif MODEL_CONFIG["combined"]:
+            objects, frame = render_yolo(results, frame)
 
         # Writing image to file
         print(f"Writer: writing frame {idx}, {objects} boxes")
@@ -186,6 +163,59 @@ async def frame_writer(dest, queue, video_writer):
         queue.task_done()
         next_frame_id += 1
     print("frame_writer done")
+
+def render_yolo(results, frame):
+    """ Renders the detected objects into the frame based on results from a Yolo-style model
+
+        Returns the number of object detected"""
+
+    combined = results[MODEL_CONFIG["combined"]][0]
+    arr = np.array(combined.as_py()).reshape((84, 8400))
+    objects = 0
+    for i in range(8400):
+        row = arr[:, i]
+        idx = np.argmax(row[4:])+4
+        maxconf = row[idx]
+        if maxconf > 0.5:
+            # YoLo format: centroid X, centroid Y, width, height, class 1, class 2, ...
+            cenx = int(row[0])
+            ceny = int(row[1])
+            width = int(row[2]/2)
+            height = int(row[3]/2)
+            cv2.rectangle(frame, (cenx - width, ceny - height), (cenx + width, ceny + height), (255, 0, 0), 2)
+            cv2.putText(frame, f"{idx} {maxconf:.2f}",
+                            (cenx, ceny - 7), cv2.FONT_HERSHEY_COMPLEX, 0.6, (255, 0, 0), 1)
+
+            objects += 1
+    return objects, frame
+
+def render_resnet(results, frame):
+    """ Renders results into the frame using output from a ResNet, MobileNet, or similar model
+
+        Returns the number of objects detected. """
+    confidences = results[MODEL_CONFIG["confidences"]][0]
+    classes = results[MODEL_CONFIG["classes"]][0]
+    bboxes = results["out.output"][0]
+
+    objects = 0
+    for bidx in range(len(classes)):
+        if confidences[bidx].as_py() < 0.5:
+            continue
+        objects += 1
+
+            # Draw the bounding box around the detected object.
+            # TODO: No labels array yet so just object index
+        class_id = int(classes[bidx].as_py())
+        label = CLASS_LABELS[class_id] if CLASS_LABELS and len(CLASS_LABELS) >= class_id else f"#{class_id}"
+        xmin = int(bboxes[bidx].as_py())
+        ymin = int(bboxes[bidx+1].as_py())
+        xmax = int(bboxes[bidx+2].as_py())
+        ymax = int(bboxes[bidx+3].as_py())
+        cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (255, 0, 0), 2)
+        cv2.putText(frame, f"{label} {confidences[bidx].as_py():.2f}",
+                        (xmin, ymin - 7), cv2.FONT_HERSHEY_COMPLEX, 0.6, (255, 0, 0), 1)
+
+    return objects, frame
 
 
 
@@ -211,10 +241,10 @@ async def main():
     output_transform = None
     video_writer = cv2.VideoWriter()
     if args.output:
-        video_writer.open(args.output, cv2.VideoWriter_fourcc(*'MJPG'), cap.fps(), (640, 480))
+        video_writer.open(args.output, cv2.VideoWriter_fourcc(*'MJPG'), cap.fps(), (MODEL_CONFIG["width"], MODEL_CONFIG["height"]))
 
     # Max number of frames to keep in memory. We want enough that we can keep the inference server busy
-    WORKER_COUNT = 3
+    WORKER_COUNT = 2
     conn = wallaroo.connect(args.url)
     work_queue = asyncio.Queue(WORKER_COUNT*6)
     write_queue = asyncio.Queue()
@@ -239,7 +269,7 @@ async def main():
         await work_queue.put((next_frame_id, frame))
 
         next_frame_id += 1
-        # if next_frame_id > 30:
+        # if next_frame_id > 50:
         #     break
 
     # Signal each worker and the writer to finish up
